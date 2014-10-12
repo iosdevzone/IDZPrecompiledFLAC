@@ -1,8 +1,10 @@
 pushd $IDZ_BUILD_ROOT
 
+IDZ_LIB_VERSION=1.2.1
 IDZ_FW_NAME=FLAC
 IDZ_NAME=flac
-IDZ_LIB_VERSION=1.2.1
+IDZ_OGG_VERSION=1.3.1
+IDZ_IOS_SDK_VERSION=8.0
 
 # IDZ_ARCHIVE_SUFFIX the suffix of the archive to be downloaded without the 
 # first period. Usually zip or tar.gz
@@ -39,19 +41,19 @@ popd
 done
 
 # Phone builds
-export IDZ_EXTRA_CONFIGURE_FLAGS=--with-ogg="$IDZ_BUILD_ROOT/libogg/1.3.1/install-iPhoneOS-armv7 --disable-asm-optimizations"
-idz_configure armv7 7.0 $IDZ_LIB_DIR/configure
-export IDZ_EXTRA_CONFIGURE_FLAGS="-with-ogg=$IDZ_BUILD_ROOT/libogg/1.3.1/install-iPhoneOS-armv7s --disable-asm-optimizations"
-idz_configure armv7s 7.0 $IDZ_LIB_DIR/configure
-export IDZ_EXTRA_CONFIGURE_FLAGS="--with-ogg=$IDZ_BUILD_ROOT/libogg/1.3.1/install-iPhoneOS-arm64 --disable-asm-optimizations"
-idz_configure arm64 7.0 $IDZ_LIB_DIR/configure
+export IDZ_EXTRA_CONFIGURE_FLAGS=--with-ogg="$IDZ_BUILD_ROOT/libogg/${IDZ_OGG_VERSION}/install-iPhoneOS-armv7 --disable-asm-optimizations"
+idz_configure armv7 ${IDZ_IOS_SDK_VERSION} $IDZ_LIB_DIR/configure
+export IDZ_EXTRA_CONFIGURE_FLAGS="-with-ogg=$IDZ_BUILD_ROOT/libogg/${IDZ_OGG_VERSION}/install-iPhoneOS-armv7s --disable-asm-optimizations"
+idz_configure armv7s ${IDZ_IOS_SDK_VERSION} $IDZ_LIB_DIR/configure
+export IDZ_EXTRA_CONFIGURE_FLAGS="--with-ogg=$IDZ_BUILD_ROOT/libogg/${IDZ_OGG_VERSION}/install-iPhoneOS-arm64 --disable-asm-optimizations"
+idz_configure arm64 ${IDZ_IOS_SDK_VERSION} $IDZ_LIB_DIR/configure
 
 # Simulator build
-export IDZ_EXTRA_CONFIGURE_FLAGS="--with-ogg=$IDZ_BUILD_ROOT/libogg/1.3.1/install-iPhoneSimulator-i386 --disable-asm-optimizations"
-idz_configure i386 7.0 $IDZ_LIB_DIR/configure
+export IDZ_EXTRA_CONFIGURE_FLAGS="--with-ogg=$IDZ_BUILD_ROOT/libogg/${IDZ_OGG_VERSION}/install-iPhoneSimulator-i386 --disable-asm-optimizations"
+idz_configure i386 ${IDZ_IOS_SDK_VERSION} $IDZ_LIB_DIR/configure
 
-export IDZ_EXTRA_CONFIGURE_FLAGS="--with-ogg=$IDZ_BUILD_ROOT/libogg/1.3.1/install-iPhoneSimulator-x86_64 --disable-asm-optimizations"
-idz_configure x86_64 7.0 $IDZ_LIB_DIR/configure
+export IDZ_EXTRA_CONFIGURE_FLAGS="--with-ogg=$IDZ_BUILD_ROOT/libogg/${IDZ_OGG_VERSION}/install-iPhoneSimulator-x86_64 --disable-asm-optimizations"
+idz_configure x86_64 ${IDZ_IOS_SDK_VERSION} $IDZ_LIB_DIR/configure
 
 idz_fw $IDZ_FW_NAME $IDZ_LIB_ALL install-iPhoneSimulator-i386/include/$IDZ_NAME
 popd
